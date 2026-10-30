@@ -194,7 +194,7 @@ def check_days(text):
 
 def format_lead(rows, missing, problems, is_test, spam, unclear):
     """The lead as a table in a fixed order, then what is missing and what to check."""
-    lines = ["**Lead details**" + (" 🧪 TEST LEAD" if is_test else ""), "", "| Field | Value |", "|---|---|"]
+    lines = ["**Lead details**" + ("TEST LEAD" if is_test else ""), "", "| Field | Value |", "|---|---|"]
     for label, value, flagged in rows:
         if spam and not value:
             continue
@@ -207,7 +207,7 @@ def format_lead(rows, missing, problems, is_test, spam, unclear):
         problems.append("not sure what these are: " + ", ".join(f'"{piece}"' for piece in unclear))
     sections = ["\n".join(lines)]
     if spam:
-        sections.append("🚫 Marked as spam, so no other details are needed. Tell me if it isn't spam.")
+        sections.append("Marked as spam, so no other details are needed. Tell me if it isn't spam.")
         return "\n\n".join(sections + (["**Please check:**\n" + "\n".join(f"- {p}" for p in problems)] if problems else []))
     if missing:
         sections.append(f"**Missing ({len(missing)}):**\n" + "\n".join(f"- {item}" for item in missing))
@@ -216,7 +216,7 @@ def format_lead(rows, missing, problems, is_test, spam, unclear):
     if missing or problems:
         sections.append("Send the missing details or corrections, in any order.")
     else:
-        sections.append("✅ All details are here. Tell me if anything should change.")
+        sections.append("All details are here. Tell me if anything should change.")
     return "\n\n".join(sections)
 
 
